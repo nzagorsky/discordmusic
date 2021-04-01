@@ -3,7 +3,7 @@
 ## How to use
     
     export DISCORD_BOT_TOKEN=YOUR_TOKEN_HERE
-    docker build . -t discordmusic && docker run -it --rm -e DISCORD_BOT_TOKEN=$DISCORD_BOT_TOKEN --name=discordmusic discordmusic
+    make run
 
 
 ## Notes:
