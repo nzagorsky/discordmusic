@@ -1,9 +1,10 @@
-FROM python:3.9.1-slim-buster 
+FROM ubuntu:focal
 
 WORKDIR /bot
 
 RUN apt-get update \
-    && apt-get install -y gcc ffmpeg python3-nacl \
+    && DEBIAN_FRONTEND=noninteractive \
+    apt-get install -y gcc ffmpeg python3 python3-pip python3-nacl \
     && rm -rf /root/.cache \
     && rm -rf /var/lib/apt/lists/*
 
@@ -12,4 +13,4 @@ RUN pip3 install -r requirements.txt
 
 COPY ./src /bot
 
-CMD ["python", "run.py"]
+CMD ["python3", "run.py"]
