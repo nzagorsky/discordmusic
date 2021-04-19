@@ -125,7 +125,7 @@ class MusicPlayer(commands.Cog):
                 ctx.voice_client.stop()
 
             source = MusicSource(discord.FFmpegPCMAudio(stream_link, **ffmpegopts))
-            source.volume = 0.50  # make it less noisy by default
+            source.volume = MusicStore.volume
 
             MusicStore.players[ctx.author.voice.channel.id] = source
 
@@ -154,6 +154,7 @@ class MusicPlayer(commands.Cog):
                 raise ValueError
             volume_value = volume / 100
             MusicStore.players[ctx.author.voice.channel.id].volume = volume_value
+            MusicStore.volume = volume_value
 
             await ctx.send(
                 f"**{ctx.message.author.name}**, volume is set to **{volume}**",
@@ -201,6 +202,7 @@ class MusicPlayer(commands.Cog):
 Players: {MusicStore.players or "no players"}
 Client: {ctx.voice_client and "connected" or "not connected"}
 isPlaying: {ctx.voice_client and ctx.voice_client.is_playing() and "yes" or "not playing"}
+Volume: {MusicStore.volume}
 ```
         """
         await ctx.send(message, delete_after=3)
@@ -228,3 +230,4 @@ class MusicSource(discord.PCMVolumeTransformer):
 
 class MusicStore:
     players = {}
+    volume = 0.20  # make it less noisy by default
