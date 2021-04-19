@@ -3,7 +3,7 @@ FROM python:3.9.1-slim-buster
 WORKDIR /bot
 
 RUN apt-get update \
-    && apt-get install -y gcc ffmpeg \
+    && apt-get install -y gcc ffmpeg libffi-dev \
     && rm -rf /root/.cache \
     && rm -rf /var/lib/apt/lists/*
 
